@@ -26,15 +26,28 @@ const create = async (req, res) => {
     }
 };
 
-const login = (req, res) => {
+const login = async (req, res) => {
     try {
         // 1. проверка дали корисникот со дадениот email постои
-    
+        let u = await user.getUserByEmail(req.body.email);
+        if (!u) {
+            return res.status(400).send('Bad request. Bad login credentials');
+        }
         // 2. проверка дали внесената лозинка на корисникот се совпаѓа со таа од базата
+        if(!bcrypt.compareSync(req.body.password, u.password)) {
+            return res.status(400).send('Bad request. Bad login credentials');
+        }
         // 3. се генерира и испраќа токен
+        let payload = {
+            uid: u._id,
+            email: u.email,
+            full_name: u.full_name
+        };
+        
         return res.send('ok');
     } catch(err) {
-        
+        console.log(err);
+        return res.status(500).send('Internal server error');
     }
 };
 
