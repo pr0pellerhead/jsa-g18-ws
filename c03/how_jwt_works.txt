@@ -1,0 +1,54 @@
+JWT: HEADER.PAYLOAD.HASH
+
+---------------------------------
+
+HEADER
+
+{
+    "alg": "HS256",
+    "type: "jwt"
+}
+
+---------------------------------
+
+PAYLOAD
+
+{
+    "uid": "iuhceo87c4p",
+    "email": "pero@perovski.com",
+    "full_name": "Pero Perovski"
+}
+
+---------------------------------
+
+HASH
+
+HEADER: 
+    plain {"alg":"HS256","type:"jwt"} 
+    -> 
+    base64 eyiJckjdnkvjaoico8rfh93qf8c98h8qiubwepicub
+
+PAYLOAD: 
+    plain {"uid":"iuhceo87c4p","email":"pero@perovski.com","full_name":"Pero Perovski"} 
+    -> 
+    base64 eyjiciuqg43o8dh2p9q87hp98h2pxc7q3gpcx9q7b3o8c7ybqp37cbo8q37ybcpcb2
+
+HASH: 
+    HEADER.PAYLOAD
+    ->
+    plain eyiJckjdnkvjaoico8rfh93qf8c98h8qiubwepicub.eyjiciuqg43o8dh2p9q87hp98h2pxc7q3gpcx9q7b3o8c7ybqp37cbo8q37ybcpcb2
+    -> 
+    hashed (using secret) Jidiod298PHP8p9h98uhjLhgloijhhj
+
+
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+
+JWT: HEADER.PAYLOAD.HASH
+    -> eyiJckjdnkvjaoico8rfh93qf8c98h8qiubwepicub.eyjiciuqg43o8dh2p9q87hp98h2pxc7q3gpcx9q7b3o8c7ybqp37cbo8q37ybcpcb2.Jidiod298PHP8p9h98uhjLhgloijhhj
+
+JWT VALIDATE
+    plain eyiJckjdnkvjaoico8rfh93qf8c98h8qiubwepicub.eyjiciuqg43o8dh2p9q87hp98h2pxc7q3gpcx9q7b3o8c7ybqp37cbo8q37ybcpcb2
+    hash Jidiod298PHP8p9h98uhjLhgloijhhj
+
+    bcrypt to validate plain against hash

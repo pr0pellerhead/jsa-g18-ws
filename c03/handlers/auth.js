@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs');
 const user = require('../pkg/user');
+const jwt = require('jsonwebtoken');
 
 const create = async (req, res) => {    
     try {
@@ -43,8 +44,8 @@ const login = async (req, res) => {
             email: u.email,
             full_name: u.full_name
         };
-        
-        return res.send('ok');
+        let token = jwt.sign(payload, 'pero123');
+        return res.status(200).send({token});
     } catch(err) {
         console.log(err);
         return res.status(500).send('Internal server error');
@@ -60,7 +61,8 @@ const resetPassword = (req, res) => {
 };
 
 const validate = (req, res) => {
-    return res.send('ok');
+    console.log(req.auth);
+    return res.status(200).send(req.auth); // return the token payload
 };
 
 module.exports = {
