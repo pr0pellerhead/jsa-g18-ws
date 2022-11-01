@@ -23,12 +23,12 @@ const create = async (data) => {
     return p.save();
 };
 
-const update = async (id, data) => {
-    return Post.updateOne({_id: id}, data);
+const update = async (id, uid, data) => {
+    return Post.updateOne({_id: id, author_id: uid}, data);
 };
 
-const remove = async (id) => {
-    return Post.deleteOne({_id: id});
+const remove = async (id, uid) => {
+    return Post.deleteOne({_id: id, author_id: uid});
 };
 
 module.exports = {
